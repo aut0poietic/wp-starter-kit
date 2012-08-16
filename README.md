@@ -67,13 +67,12 @@ Say for instance you wanted to create a drop-in for re-branding the WordPress Lo
 Create a new file in the `client` folder named 'branding.php' and add the code.
 
 ```php
-<?php
-	function myplugin_rebrand_logo() {
-		echo '<style type="text/css">
-		h1 a { background-image: url(http://yourwebsite.com/wp-content/uploads/yourimage.jpg) !important; }
-		</style>';
-	}
-	add_action( 'login_head' , 'myplugin_rebrand_logo' ) ;
+function myplugin_rebrand_logo() {
+	echo '<style type="text/css">
+	h1 a { background-image: url(http://yourwebsite.com/wp-content/uploads/yourimage.jpg) !important; }
+	</style>';
+}
+add_action( 'login_head' , 'myplugin_rebrand_logo' ) ;
 ```
 
 Starter-Kit will find your file and apply the action.
@@ -87,18 +86,25 @@ To start using the methods, create Drop-In class that inherits from the DropIn b
 starter_kit to 'xyzPlugin' and you wanted to build the re-branding piece above as a class:
 
 ```php
-<?php
-class xyzPlugin_Home extends xyzPlugin_DropIn {
+class xyzPlugin_Branding extends xyzPlugin_DropIn {
 
-	public function __construct( ){
-		$this->add_action( 'login_head' , 'rebrand_logo' ) ;
-	}
+ 	public function init( $callable = array( ) ){
+ 		if( is_callable( $callable ) && method_exists( $callable[ 0 ] , $callable[ 1 ] ) ){
+ 			call_user_func_array( $callable , array( new self ) ) ;
+ 		}
+ 	}
 
-	function myplugin_rebrand_logo() {
-    	echo '<style type="text/css">
-    	h1 a { background-image: url(http://yourwebsite.com/wp-content/uploads/yourimage.jpg) !important; }
-    	</style>';
-    }
-} // End Class
+ 	public function __construct( ){
+ 		$this->add_action( 'login_head' , 'rebrand_logo' ) ;
+ 	}
+
+ 	function myplugin_rebrand_logo() {
+ 		echo '<style type="text/css">
+     	h1 a { background-image: url(http://yourwebsite.com/wp-content/uploads/yourimage.jpg) !important; }
+     	</style>';
+ 	}
+ } // End Class
+ // Subscribe to the drop-in to the initialization event
+ add_action( 'starter_kit_init' , array( 'starter_kit_Home' , 'init'  )  , 1 ,  1 ) ;
 
 ```
