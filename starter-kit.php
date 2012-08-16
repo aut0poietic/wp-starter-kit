@@ -35,7 +35,7 @@ require_once( '__inc/template.php' ) ;
 class starter_kit {
 
 	/**
-	 * Constructor: Main entry point for your plugin. Runs during plugins_loaded.
+	 * Constructor: Main entry point for your plugin. Runs during the plugins_loaded action.
 	 */
 	public function starter_kit( )
 	{
@@ -280,33 +280,33 @@ class starter_kit {
 	 */
 	private static function glob_php( $absolute_path )
 	{
-		$absolute_path = untrailingslashit( $absolute_path );
+		$absolute_path = untrailingslashit( $absolute_path ) ;
 		$files = array( ) ;
-		if ( !$dir = @opendir( $absolute_path ) )
+		if ( ! $dir = @opendir( $absolute_path ) )
 		{
-			return $files;
+			return $files ;
 		}
 
 		while ( false !== $file = readdir( $dir ) )
 		{
-			if ( '.' == substr( $file, 0, 1 ) || '.php' != substr( $file, -4 ) )
+			if ( '.' == substr( $file , 0 , 1 ) || '.php' != substr( $file , -4 ) )
+			{
+				continue ;
+			}
+
+			$file = "$absolute_path/$file" ;
+
+			if ( ! is_file( $file ) )
 			{
 				continue;
 			}
 
-			$file = "$absolute_path/$file";
-
-			if ( !is_file( $file ) )
-			{
-				continue;
-			}
-
-			$files[] = $file;
+			$files[ ] = $file ;
 		}
 
-		closedir( $dir );
+		closedir( $dir ) ;
 
-		return $files;
+		return $files ;
 	}
 } // End Class
 
