@@ -1,0 +1,8 @@
+# Images should be stored in this folder.  You can ignore your *.psd files
+
+
+# Generic ignore stuffs...
+ Thumbs.db
+ .DS_Store
+ .DS_Store?
+ .Trashes

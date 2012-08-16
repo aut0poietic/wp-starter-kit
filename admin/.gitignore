@@ -1,0 +1,7 @@
+# Add any drop-ins to this folder that handle admin-only functions.
+
+# Generic ignore stuffs...
+ Thumbs.db
+ .DS_Store
+ .DS_Store?
+ .Trashes

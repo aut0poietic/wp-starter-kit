@@ -1,0 +1,7 @@
+# Template files are stored in this folder.
+
+# Generic ignore stuffs...
+ Thumbs.db
+ .DS_Store
+ .DS_Store?
+ .Trashes

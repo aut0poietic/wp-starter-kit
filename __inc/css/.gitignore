@@ -1,0 +1,8 @@
+ # Store your LESS and CSS in this folder and ignore your compiled files.
+
+
+# Generic ignore stuffs...
+ Thumbs.db
+ .DS_Store
+ .DS_Store?
+ .Trashes

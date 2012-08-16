@@ -1,0 +1,8 @@
+# Javascript files are stored here.  You can ignore your min files if that's how you roll
+
+
+# Generic ignore stuffs...
+ Thumbs.db
+ .DS_Store
+ .DS_Store?
+ .Trashes
