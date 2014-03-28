@@ -6,4 +6,4 @@
 .idea/
 .tmp/
 .sass-cache/
-mode_modules/
+node_modules/
