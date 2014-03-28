@@ -9,16 +9,16 @@
  *	Domain Path: 	languages/
  */
 
-define( 'starter_kit_VERSION'		, '0.6.0' ) ;
-define( 'starter_kit_PLUGIN_FILE'	,  __FILE__ ) ;
-define( 'starter_kit_PLUGIN_DIR'	, plugin_dir_path( __FILE__ ) ) ;
-define( 'starter_kit_PLUGIN_URL' 	, plugin_dir_url( __FILE__ ) ) ;
+define( 'VERSION'		, '0.6.0' ) ;
+define( 'PLUGIN_FILE'	,  __FILE__ ) ;
+define( 'PLUGIN_DIR'	, plugin_dir_path( __FILE__ ) ) ;
+define( 'PLUGIN_URL' 	, plugin_dir_url( __FILE__ ) ) ;
 
-include starter_kit_PLUGIN_DIR . '/__inc/geek_caller_rejection.php' ;
+include PLUGIN_DIR . '/kit/silence.php' ;
 
 // We include the drop-in's base class here so the drop-in's themselves don't need to.
-require_once( '__inc/drop-in.php' ) ;
-require_once( '__inc/template.php' ) ;
+require_once( 'kit/drop-in.php' ) ;
+require_once( 'kit/template.php' ) ;
 
 /**
  * The central plugin class and bootstrap for the application.
@@ -37,9 +37,8 @@ class starter_kit {
 	/**
 	 * Constructor: Main entry point for your plugin. Runs during the plugins_loaded action.
 	 */
-	public function starter_kit( )
-	{
-
+	public function __construct( ) {
+		Template::set_path( PLUGIN_DIR . '/__inc/templates/' ) ;
 	}
 
 	/**
@@ -52,8 +51,7 @@ class starter_kit {
 	 * @static
 	 * @return array The default preferences and settings for the plugin.
 	 */
-	private static function defaults( )
-	{
+	private static function defaults( ) {
 		return array(
 
 		) ;
@@ -68,8 +66,7 @@ class starter_kit {
 	 * @static
 	 * @hook register_activation_hook
 	 */
-	public static function activate_plugin( )
-	{
+	public static function activate_plugin( ) {
 
 	}
 
@@ -83,8 +80,7 @@ class starter_kit {
 	 * @static
 	 * @hook register_deactivation_hook
 	 */
-	public static function deactivate_plugin( )
-	{
+	public static function deactivate_plugin( ){
 
 	}
 
@@ -106,8 +102,7 @@ class starter_kit {
 	 * @return starter_kit
 	 */
 	private static $__instance ;
-	public static function init( )
-	{
+	public static function init( ) {
 		if ( ! self::$__instance )
 		{
 			self::$__instance = new starter_kit ;
@@ -119,107 +114,13 @@ class starter_kit {
 	}
 
 /*	*****************************************************************************************************************
-	Template Services
-	***************************************************************************************************************** */
-
-	/**
-	 * Private central instance of the template engine. Use starter_kit::template() to obtain an instance.
-	 * @var starter_kit_Template
-	 */
-	private static $__template ;
-
-	/**
-	 * Initializes the template engine and specifies a path to all template files to be
-	 * { PLUGIN DIRECTORY }/_inc/templates/.
-	 */
-	private function init_templates( )
-	{
-		self::$__template = new starter_kit_Template(  starter_kit_PLUGIN_DIR . '/__inc/templates/' ) ;
-	}
-
-	/**
-	 * Provides global access to the template engine class.
-	 *
-	 * @static
-	 * @return starter_kit_Template
-	 */
-	public static function template( )
-	{
-		return self::$__template ;
-	}
-
-/*	*****************************************************************************************************************
 	Plugin Options
 	***************************************************************************************************************** */
 
-	/**
-	 * Provides global access to the plug-in's options.
-	 * Options are stored as a single array in the database and
-	 * this function provides access to the individual keys.
-	 *
-	 * @static
-	 * @param $name string The key name of the option to retrieve
-	 * @param $default mixed Default value returned if the key doesn't exist.
-	 * @return mixed
-	 */
-	public static function get_option( $name , $default )
-	{
-		$options = get_option( 'starter_kit' ) ;
-		if ( is_array( $options ) && array_key_exists( $name , $options ) )
-		{
-			return $options[ $name ] ;
-		}
-		return $default ;
-	}
 
-	/**
-	 * Updates the value of a plugin option. Will add the value to the options if it doesn't exist.
-	 *
-	 * @static
-	 * @param $name string The key name of the option to set
-	 * @param $value mixed The new value
-	 * @return bool
-	 */
-	public static function update_option( $name , $value )
-	{
-		$options = get_option( 'starter_kit' ) ;
-		if( in_array( $name , $options[ 'read_only' ] ) )
-		{
-			return false ;
-		}
-		$options[ $name ] = $value;
 
-		return update_option( 'starter_kit' , $options ) ;
-	}
 
-	/**
-	 * Updates the plug-in's options data to the current version.
-	 *
-	 * This method checks the currently installed WordPress options and ensures that
-	 * the keys in the default options exist and that any unused options stored in the
-	 * starter_kit key are deleted.
-	 *
-	 * @static
-	 * @return bool Returns TRUE if the options were saved, FALSE otherwise.
-	 * @used-by _activate_plugin
-	 */
-	public static function upgrade_plugin_options( )
-	{
-		$defaults = self::defaults( ) ;
-		$options = get_option( 'starter_kit' ) ;
 
-		// If this is a new installation, install the defaults.
-		if( $options === false )
-		{
-			$options = $defaults ;
-		}
-		else
-		{
-			$options = shortcode_atts( $defaults , $options ) ;
-		}
-
-		return update_option( 'starter_kit' , $options ) ;
-	}
 
 	/**
 	 * Boiler plate wrapper for the activate_plugin method. Calls upgrade_plugin_options to

@@ -2,32 +2,31 @@
 /*
  * Base Starter Kit Feature Class
  *
- * Base is the parent class for all class-based functionality ( called drop-ins ) you create in the plug-in.
+ * Base is the parent class for all class-based functionality you create in the plug-in.
  * The class defines a few helpful functions for making WordPress a bit more class-friendly.
  */
-class starter_kit_DropIn
-{
+class starter_kit_Feature {
 	/**
-	 * Features registry storage.
+	 * Instantiates the current class and returns an instance.
 	 *
-	 * @var array
+	 * @note If you are using PHP < 5.3 your class will need to implement it's own static init method
+	 * as get_called_class is not supported.
+	 * @static
 	 */
-	private static $__drop_ins ;
+	public static function init() {
+		if( function_exists( 'get_called_class' ) ){
+			$current_class = get_called_class() ;
+			return new $current_class() ;
+		}
+	}
 
 	/**
-	 * Registers a loaded class with this parent class. This method is passed as a callable
-	 * as the first ( and only ) parameter in the <kbd>starter_kit_init</kbd> action.
-	 *
+	 * Returns a template instance, ready for use.
 	 * @static
-	 * @param $instance Object A class name that was loaded by starter_kit_init
+	 * @return starter_kit_Template
 	 */
-	public static function register_class( $instance )
-	{
-		if( ! is_array( self::$__drop_ins ) )
-		{
-			self::$__drop_ins = array( ) ;
-		}
-		self::$__drop_ins[ get_class( $instance ) ] = $instance ;
+	public static function get_template(){
+		return new starter_kit_Template() ;
 	}
 
 	/**
@@ -37,8 +36,7 @@ class starter_kit_DropIn
 	 * @param $method_name string Name of a method within the child class.
 	 * @return callable Array that is compatible with call_user_func*.
 	 */
-	public function marshal( $method_name )
-	{
+	public function marshal( $method_name ) {
 		return array( &$this , $method_name ) ;
 	}
 
@@ -50,8 +48,7 @@ class starter_kit_DropIn
 	 * @param int $priority Order called; Inherited from WordPress add_action
 	 * @param int $accepted_args Number of arguments expected; Inherited from WordPress add_action
 	 */
-	public function add_action( $action , $method_name , $priority = 10 , $accepted_args = 2 )
-	{
+	public function add_action( $action , $method_name , $priority = 10 , $accepted_args = 2 ) {
 		add_action( $action , $this->marshal( $method_name ) , $priority , $accepted_args ) ;
 	}
 
@@ -63,8 +60,7 @@ class starter_kit_DropIn
 	 * @param int $priority Order called; Inherited from WordPress add_action
 	 * @param int $accepted_args Number of arguments expected; Inherited from WordPress add_action
 	 */
-	public function add_filter( $filter , $method_name , $priority = 10 , $accepted_args = 2 )
-	{
+	public function add_filter( $filter , $method_name , $priority = 10 , $accepted_args = 2 ) {
 		add_filter( $filter , $this->marshal( $method_name ) , $priority , $accepted_args ) ;
 	}
 
@@ -77,8 +73,7 @@ class starter_kit_DropIn
 	 *
 	 * @param string $action The base-name of the action
 	 */
-	public function add_admin_ajax( $action )
-	{
+	public function add_admin_ajax( $action ) {
 		$this->add_action( 'wp_ajax_' . $action , $action ) ;
 	}
 	/**
@@ -87,8 +82,7 @@ class starter_kit_DropIn
 	 *
 	 * @param string $action The base-name of the action
 	 */
-	public function add_client_ajax( $action )
-	{
+	public function add_client_ajax( $action ) {
 		$this->add_admin_ajax( $action ) ;
 		$this->add_action( 'wp_ajax_nopriv_' . $action , $action ) ;
 	}

@@ -9,12 +9,12 @@
  * can accessed using starter_kit::template( ).
  *
  */
-class starter_kit_Template {
+class Template {
 
 	/**
 	 * @var string Path to template directory.
 	 */
-	private $template_path ;
+	private static $template_path ;
 
 	/**
 	 * @var array Temporary variable storage.
@@ -27,7 +27,9 @@ class starter_kit_Template {
 	 */
 	public function __construct( $path = NULL )
 	{
-		$this->set_path( $path );
+		if( ! is_null( $path ) ){
+			self::set_path( $path );
+		}
 		$this->vars = array();
 	}
 
@@ -35,16 +37,14 @@ class starter_kit_Template {
 	 * Sets the default path for all template files.
 	 * @param $path string Path to the directory containing the template files.
 	 */
-	public function set_path( $path )
-	{
-		$this->template_path = $path ;
+	public static function set_path( $path ) {
+		self::$template_path = $path ;
 	}
 
 	/**
 	 * Clears the internal variable storage.
 	 */
-	public function clear( )
-	{
+	public function clear( ) {
 		$this->vars = array( ) ;
 	}
 
@@ -53,8 +53,7 @@ class starter_kit_Template {
 	 * @param $name string Name of the variable as it is used in the template.
 	 * @param $value mixed Value o the variable.
 	 */
-	public function set( $name , $value )
-	{
+	public function set( $name , $value ) {
 		$this->vars[ $name ] = $value ;
 	}
 
@@ -64,16 +63,11 @@ class starter_kit_Template {
 	 * @param bool $append If set to true, this method will add the provided $pairs existing variables;
 	 * false replaces all existing variables. The default is true.
 	 */
-	public function set_vars( $pairs , $append = true )
-	{
-		if( is_array( $pairs ) )
-		{
-			if( $append && is_array( $this->vars ) )
-			{
+	public function set_vars( $pairs , $append = true ) {
+		if( is_array( $pairs ) ){
+			if( $append && is_array( $this->vars ) ) {
 				$this->vars = array_merge( $this->vars , $pairs ) ;
-			}
-			else
-			{
+			} else {
 				$this->vars = $pairs ;
 			}
 		}
@@ -86,17 +80,13 @@ class starter_kit_Template {
 	 * @param bool $use_default_path If false, the $file parameter must be a fully-qualified path ( not a url ).
 	 * @return string The rendered template file contents.
 	 */
-	public function apply( $file , $use_default_path = true )
-	{
+	public function apply( $file , $use_default_path = true ){
 		extract( $this->vars ) ;
 
 		ob_start( ) ;
-		if( $use_default_path == TRUE )
-		{
-			include( $this->template_path . $file ) ;
-		}
-		else
-		{
+		if( $use_default_path == TRUE ) {
+			include( self::$template_path . $file ) ;
+		} else {
 			include( $file ) ;
 		}
 		$contents = ob_get_contents( ) ;
