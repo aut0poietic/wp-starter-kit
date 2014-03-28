@@ -4,5 +4,6 @@
  .DS_Store?
  .Trashes
 .idea/
+.tmp/
 .sass-cache/
 mode_modules/
