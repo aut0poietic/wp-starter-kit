@@ -1,9 +1,0 @@
-# Add any drop-ins to this folder that must run every page load.
-
-
-
-# Generic ignore stuffs...
- Thumbs.db
- .DS_Store
- .DS_Store?
- .Trashes

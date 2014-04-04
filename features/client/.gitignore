@@ -1,4 +1,6 @@
-# Add any drop-ins to this folder that handle client-only functions.
+# Add any drop-ins to this folder that must run every page load.
+
+
 
 # Generic ignore stuffs...
  Thumbs.db

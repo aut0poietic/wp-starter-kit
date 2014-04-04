@@ -1,0 +1,46 @@
+h1 a {
+
+	position: relative ;
+	z-index: 1 ;
+	overflow: visible !important ;
+	transition: background-size .5s ;
+
+	&:before {
+		content: "";
+		display:block;
+		width: 117px;
+		height: 117px;
+		position: absolute;
+		top: -18px;
+		left: -18px;
+		z-index: 2 ;
+		background: transparent url(../img/starter-kit.png) top left no-repeat;
+		transform: rotate(8deg);
+		opacity: 0;
+		transition: opacity .5s .25s, transform .8s .25s ;
+	}
+
+		&.starter-kit-enabled {
+
+		background-size: 60px 60px !important;
+		background-position: center center  !important;
+
+		&:before {
+			opacity: 1;
+			transform: rotate(0deg);
+		}
+	}
+}
+.message {
+	visibility: visible ;
+	opacity: 1;
+	height: 1.5em;
+	transition: opacity .35s 1s, height .35s 1s ;
+
+	&.hidden {
+		display:block !important;
+		visibility: hidden;
+		opacity:0 ;
+		height: 1px;
+	}
+}
