@@ -78,9 +78,7 @@ to near idiotic lengths to make use of SASS, JavaScript, Templates, action hooks
 No one in their right mind would use it.
 
 That said, the animation is still kind cool to watch.
-
-![The Rebrand Animation](rebrand.gif)
-
+<p align="center">![The Rebrand Animation](rebrand.gif)</p>
 
 ```php
 function myplugin_rebrand_logo() {
