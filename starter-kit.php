@@ -54,8 +54,6 @@ class StarterKit extends Kit {
 	 */
 	public function __construct() {
 		parent::__construct();
-
-
 	}
 
 	/**

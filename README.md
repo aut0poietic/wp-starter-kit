@@ -1,70 +1,86 @@
 # Starter-Kit #
 ## WordPress Plugin Foundation ##
 
-**Starter-Kit** is a development template for rapidly building WordPress plugins.
-The framework provides some useful services and a clean way to structure your plugin while allowing you to build
-libraries of small functional components.
+**Starter-Kit** is a development kit for rapidly building WordPress plugins, providing some useful
+services and a clean way to structure a plugin.
 
-### Okay. Great.  Why do I want to use a framework? ###
+## New in 0.9 ##
 
-WordPress plugins are an awesome way of adding functionality to your client's WordPress sites. They promise
-nice, easily installable nuggets of functionality that you can keep from site to site and even use
-to create "value-add" services in your shop -- like adding client branding to the admin, events calendars
-or whatever the client can dream up.
++   Starter-Kit now makes use of namespaces and reflection available in **PHP 5.3 or better**.
++   Streamlined Feature-based development process ("Drop-ins" are out ).
++   Classes extending Feature no longer need the init function.
++   All basic Starter-Kit behavior has been moved to separate classes and can be removed from
+	the plugin if not needed.
++   Template and option services live in the Feature class/subclasses.
++   Nearly all boilerplate has been moved into the Kit or Feature classes and out of the way.
++   Added Grunt support
+	+   SASS, autoprefixer and cssmin for CSS
+	+   JavaScript inspected JSHint and compressed with Uglify
+	+   Images compressed with imagemin
+	+   Default grunt task and watch task "dev"
+	+   npm install from package.json
 
-The downside is that clients are rarely happy with the catch-all plugin you've built or the one
-you built for your last client. Adding option pages are are a wonderful feature, but capturing all the
-options *every* client might ever want can take time and can rapidly bloat a plugin.
-Adding your own action hooks is a start, but takes some consideration, slowing down your development
-effort and when you're trying to hit that outrageous deadline never end up portable to the next project.
+### Feature-based Development ###
 
-Multiple, tiny, one-shot plugins can fill these gaps but personally, I hate having a
-massive list of installed plugins and having to explain them to an intimidated client.
+I can't speak for other developers, but when I build a plugin I want to think about
+what the plugin does, the features I plan to build. I want to use OOP. I want a clean separation of my PHP
+logic and HTML views. I want to start a project running with everything I need &emdash; then I never want to see it,
+much less think about it, again. That's what this framework is designed to provide.
 
-### My Solution: Starter-Kit Drop-Ins ###
+With Starter-Kit, you build Features &emdash; that is, small classes that extend from the framework's "Feature"
+class &emdash; and drop them into one of three folders (admin, client, or core). These files are automatically loaded
+in the correct context -- so you're only loading the functionality you need, when you need it.
 
-The Kit allows you to add individual files to your WordPress plugin called "Drop-Ins". These files encapsulate
-a single piece of functionality. Do you often re-brand the WordPress login screen with your logo and URL?
-Create a drop-in file with that code and move it from project to project. Have a few custom post types that always
-seem to need? Create a drop-in for each type.
+Your classes aren't required to extend Feature, but doing so adds some useful services:
++   Auto-initializing static method for instantiating your feature from an action-hook.
++   A template class for separating your class's logic from HTML output.
++   WordPress-options handling methods, with values namespaced to your plugin.
++   Class-Friendly methods for adding actions &amp; filters to WordPress without array-wrapping.
++   WordPress AJAX methods wrapped for easy implementation.
 
-Drop-ins can be as simple as a function and an add_action call, a Widget class and it's registration, a static
-class with your custom methods or a class file that assembles multiple pieces of functionality.
+In addition to auto-class loading, the base plugin itself:
++   handles default plugin options, with the ability to handle defaults between plugin versions.
++   adds an init hook for your plugin that triggers Feature initiation.
++   sets default template directory for your rendering
++   provides ready for use activation and deactivation hooks
 
-Making the drop-ins as simple as possible is the key: It's easy to combine multiple drop-ins within your plugin
-that collectively create very complex behaviors. You can move each drop-in from project to project and when you need
-to customize, create a drop-in for the custom work.
-
-### Other Features ###
-Drop-ins can be pretty nice for making portable code, but there's more to Starter-Kit to make your life easier:
-
-* Templates: A simple template framework for separating your rendering from your PHP logic.
-* OOP: A base DropIn class makes working with WordPress actions, filters and AJAX a snap.
-Drop-ins that inherit from the base can be made to auto-instantiate and register themselves.
-* Options: Centralized WordPress Options handling with defaults and a system for handling new options during plugin upgrades.
-* Starter Language files: A `master.po' file already set for your plugin. Just open with PoEdit and click update.
+And if that's not enough for you, the project comes ready for use with SASS, autoprefixer, jshint, uglify
+and imagemin &emdash and of course it's just a starting point. Grunt being grunt means you can tweak it
+to your heart's content.
 
 ## Getting Started with Starter-Kit ##
 
-Starter-Kit is a template that you customize a few pieces and start working.
-1. Download starter kit and rename the 'kit' directory and 'starter-kit.php' to the name of your plugin.
-2. Copy this folder to the plugins directory of on your development environment.
-3. In your development tool of choice, do a global find-and-replace, changing 'starter_kit' and with the name
-   of your plugin; This will become the name of your plugin's class, so PHP Class naming rules apply. You want
-   this to be globally unique, so be creative.
-4. Start building the next must-have plugin!
+Starter-Kit is a template that you customize:
 
-When you globally change 'starter_kit', you're changing:
-* The main class name
-* The textdomain for the plugin
-* All class and constant prefixes so your classes don't collide.
+1.  Download Starter-Kit and copy the files to your development directory and rename
+	'starter-kit.php' to the name of your plugin.
+2.  In your development tool of choice, do a global find-and-replace:
+	+   Replace all instances of the "irresponsible_art\starter_kit" namespace to reflect your organization
+	+   Replace all instances of "StarterKit" to your class name.
+	+   Replace all instances of "starter_kit" with your plugin's slug -- this will replace things like the
+		WP text-domain, options key, and a few other strings.
 
-### Creating a Simple Drop-In ###
+If you plan to use grunt in your project:
 
-Like we said earlier, drop in's can be as simple as a single function and an action.
+1.  In a console, navigate to your development directory and run "npm install".
+2.  In that same console, run "grunt" to test your build
+3.  When you're ready to work, run the "grunt dev" to start the watch task ( ctrl + C stops it ).
 
-Say for instance you wanted to create a drop-in for re-branding the WordPress Login screen to use your logo.
-Create a new file in the `client` folder named 'branding.php' and add the code.
+## A Sample Feature ##
+
+The framework comes with a sample feature already in the assets/core folder ("rebrand.php") which rebrands the
+WordPress login screen and utilizes the majority of the frameworks features, if only in a basic way.
+
+### Warning ###
+
+The "rebrand" feature is not only one of the stupidest examples of a plugin known to man, it also goes
+to near idiotic lengths to make use of SASS, JavaScript, Templates, action hooks, filters and even options.
+No one in their right mind would use it.
+
+That said, the animation is still kind cool to watch.
+
+![The Rebrand Animation](rebrand.gif)
+
 
 ```php
 function myplugin_rebrand_logo() {
