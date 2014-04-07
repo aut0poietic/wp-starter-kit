@@ -71,6 +71,7 @@ If you plan to use grunt in your project:
 The framework comes with a sample feature already in the assets/core folder ("rebrand.php") which rebrands the
 WordPress login screen and utilizes the majority of the frameworks features, if only in a basic way.
 
+<<<<<<< HEAD
 #### Warning: Lame Example Ahead ####
 
 The "rebrand" feature is not only one of the stupidest examples of a plugin known to man, it also goes
@@ -95,3 +96,29 @@ class LoginBranding extends Feature {
 add_action( 'starter_kit_init', array( 'irresponsible_art\starter_kit\LoginBranding', 'init' ) );
 ```
 
+=======
+
+
+
+```php
+function myplugin_rebrand_logo() {
+	echo '<style type="text/css">
+	h1 a { background-image: url(http://yourwebsite.com/wp-content/uploads/yourimage.jpg) !important; }
+	</style>';
+}
+add_action( 'login_head' , 'myplugin_rebrand_logo' ) ;
+```
+
+
+### Warning ###
+
+The "rebrand" feature is not only one of the stupidest examples of a plugin known to man, it also goes
+to near idiotic lengths to make use of SASS, JavaScript, Templates, action hooks, filters and even options.
+No one in their right mind would use it.
+
+That said, the animation is still kind cool to watch.
+<p align="center"><img src="rebrand.gif"></p>
+
+
+
+>>>>>>> FETCH_HEAD
