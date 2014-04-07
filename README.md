@@ -54,7 +54,7 @@ Starter-Kit is a template that you customize:
 
 1.  Download Starter-Kit and copy the files to your development directory and rename
 	'starter-kit.php' to the name of your plugin.
-2.  In your development tool of choice, do a global find-and-replace:
+2.  In your development tool of choice, do a **global** find-and-replace:
 	+   Replace all instances of the "irresponsible_art\starter_kit" namespace to reflect your organization
 	+   Replace all instances of "StarterKit" to your class name.
 	+   Replace all instances of "starter_kit" with your plugin's slug -- this will replace things like the
@@ -62,9 +62,10 @@ Starter-Kit is a template that you customize:
 
 If you plan to use grunt in your project:
 
-1.  In a console, navigate to your development directory and run "npm install".
-2.  In that same console, run "grunt" to test your build
-3.  When you're ready to work, run the "grunt dev" to start the watch task ( ctrl + C stops it ).
+1.  Open `package.json` and change the name and version of the plugin.
+2.  In a console, navigate to your development directory and run 'npm install'.
+3.  In that same console, run 'grunt' to test your build
+4.  When you're ready to work, run the 'grunt dev' to start the watch task ( ctrl + C stops it ).
 
 ## A Sample Feature ##
 
@@ -117,10 +118,10 @@ WordPress add_action method</a></dd>
 
 <dt><code>$this->add_filter( $action, $method_name, $priority = 10, $accepted_args = 2 )</code></dt>
 <dd>Marshaled version of <a href="https://codex.wordpress.org/Function_Reference/add_filter" target="_blank">
-WordPress add_filter method]</a></dd>
+WordPress add_filter method</a></dd>
 </dl>
 
-In our Rebrand plugin adds a filter for `login_message` and the method to handle the filter:
+The Rebrand feature adds a filter for `login_message` and the method to handle the filter:
 
 ```php
 namespace irresponsible_art\starter_kit;
@@ -221,8 +222,9 @@ parameter can be set to `FALSE` if you want to remove any previously set values.
 
 <dt><code>apply( $file, $use_default_path = TRUE )</code></dt>
 <dd>Applies the previously set values to the template with the name in `$file` and returns the rendered string.
-Template files are assumed to be in the `assets/templates` folder. If your template is in another location, specify
-the full path in the `$file` value and use the optional second parameter, setting it to `FALSE`</dd>
+Template files are assumed to be in the <code>assets/templates</code> folder. If your template is in another
+location, specify the full path in the <code>$file</code> value and use the optional second parameter,
+setting it to <code>FALSE</code></dd>
 </dl>
 
 Template files themselves are PHP -- no confusing syntax or regex/string replacement to slow down your plugin.
@@ -237,12 +239,12 @@ The plugin exposes two additional method not used in the Rebrand Feature.
 
 <dl>
 <dt><code>$this->add_admin_ajax( $action )</code></dt>
-<dd>Using the method provided <code>$action</code>, creates an WordPress AJAX action of the same name.
+<dd>Using the method provided in <code>$action</code>, creates an WordPress AJAX action of the same name.
  This action will only be available to users who are logged into WordPress.</dd>
 
 <dt><code>$this->add_client_ajax( $action )</code></dt>
 <dd>Using the method provided <code>$action</code>, creates an WordPress AJAX action of the same name.
- This action will only be available to all users.</dd>
+ This action will be available to all users.</dd>
 </dl>
 
 Like the action / filter hooks, the ajax methods attach themselves to methods in your `Feature` subclasses.
@@ -292,7 +294,7 @@ Starter-Kit now comes with a **very** basic grunt configuration. The setup is fa
 +   grunt tasks are in the root of the `grunt` folder.
 +   grunt task options are in the `grunt/options` folder.
 
-The structure is fairly flexible, and you should be able to add additional tasks and options or exit the existing
+The structure is fairly flexible, and you should be able to add additional tasks and options or edit the existing
 elements at will. But the nuts and bolts of using grunt is far beyond the scope of this readme.
 The best tutorial (IMO) is from [Chris Coyier on 24 Ways](http://24ways.org/2013/grunt-is-not-weird-and-hard/).
 You can also view his [screen cast](http://css-tricks.com/video-screencasts/130-first-moments-grunt/)
@@ -312,8 +314,8 @@ Starter-Kit uses [SASS (.scss)](http://sass-lang.com/) and these files live in t
 The grunt task will compile the sass files, run [autoprefixer](https://github.com/nDmitry/grunt-autoprefixer),
 and minifiy the resulting css file. Grunt will ignore:
 
-+   Files with the extension '.css' - assumed to already been processed.
-+   Files that begin with an underscore ('_') are assumed to be included using @import.
++   Files with the extension '.css' - assumed to have already been processed.
++   Files that begin with an underscore ('_') are assumed to have been included using @import.
 +   Any files in a **subdirectory** of `assets/css` are assumed to have been included using @import.
 
 #### Images ####
@@ -341,7 +343,7 @@ grunt creates a few temporary folders -- be sure to avoid uploading these to you
 
 I should mention that this is a living codebase -- I use this any time I'm building plugin. As a result,
 the code changes frequently. I attempt to keep the code updated (mostly happens) as well as the documentation
-(mostly doesn't happen). Feel free to submit issues, or browser them to see what other features are planned.
+(mostly doesn't happen). Feel free to submit issues, or browse the issues list to see what other features are planned.
 
 Thanks for playing.
 
