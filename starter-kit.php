@@ -4,7 +4,7 @@
  *	Description:    Plugin starter-kit for rapid plugin development.
  *	Author:         Jer / aut0poietic
  *	Author URI:     http://irresponsibleart.com
- *	Version: 		0.9.0
+ *	Version: 		0.9.1
  *	Text Domain: 	starter_kit
  *	Domain Path: 	languages/
  */
@@ -12,9 +12,9 @@
 namespace irresponsible_art\starter_kit;
 require_once( 'features/silence.php' );
 
-define( 'VERSION', '0.9.0' );
-define( 'PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'irresponsible_art\starter_kit\VERSION', '0.9.1' );
+define( 'irresponsible_art\starter_kit\PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'irresponsible_art\starter_kit\PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /*
  * The following includes add features to the plugin
