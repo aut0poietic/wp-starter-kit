@@ -285,4 +285,67 @@ jQuery( document ).ready( function( $ ) {
 AJAX in WordPress is a fairly large topic. For more information on using AJAX with WordPress, see the codex
  article [AJAX in Plugins](http://codex.wordpress.org/AJAX_in_Plugins).
 
- 
+### Using Grunt ###
+
+Starter-Kit now comes with a **very** basic grunt configuration. The setup is fairly simple:
+
++   grunt tasks are in the root of the `grunt` folder.
++   grunt task options are in the `grunt/options` folder.
+
+The structure is fairly flexible, and you should be able to add additional tasks and options or exit the existing
+elements at will. But the nuts and bolts of using grunt is far beyond the scope of this readme.
+The best tutorial (IMO) is from [Chris Coyier on 24 Ways](http://24ways.org/2013/grunt-is-not-weird-and-hard/).
+You can also view his [screen cast](http://css-tricks.com/video-screencasts/130-first-moments-grunt/)
+on the subject.
+
+#### JavaScript ####
+JavaScript goes in the in the `assets/js` folder. The grunt task will lint (that means, check your code quality
+using jshint) and then uglify ( that means, make it really really tiny ) the JavaScript files in this
+directory, with a few exceptions:
+
++   Files with the extension '.min.js' are assumed to be uglified already, and are ignored.
++   Files that begin with an underscore ('_') are assumed to be included in some other way and are ignored.
++   Any files in a **subdirectory** of `assets/js` are assumed to be included in some other way and are ignored.
+
+#### SASS/CSS ####
+Starter-Kit uses [SASS (.scss)](http://sass-lang.com/) and these files live in the in the `assets/css` folder.
+The grunt task will compile the sass files, run [autoprefixer](https://github.com/nDmitry/grunt-autoprefixer),
+and minifiy the resulting css file. Grunt will ignore:
+
++   Files with the extension '.css' - assumed to already been processed.
++   Files that begin with an underscore ('_') are assumed to be included using @import.
++   Any files in a **subdirectory** of `assets/css` are assumed to have been included using @import.
+
+#### Images ####
+The grunt task will minify all images placed in the `assets/img` folder using imagemin. Don't worry,
+imagemin is smart enough to know what images have been previously minified.
+
+#### The 'dev' Grunt Task ####
+The default task, that is, just typing 'grunt' into the command line while in your plugin folder, will perform
+all of the above actions.
+
+However, the 'dev' ( that is, typing 'grunt dev' ) will start the watch task. This task will monitor the files in
+your development directory, waiting for changes. So when you edit a JavaScript file in the `assets/js` folder
+the dev task will see the change and run the appropriate tasks (jshint and uglify), even if that file is in a subfolder.
+The same goes for the editing an .scss file or adding an image to the `assets/img` folder.
+
+#### Grunt Gotchas ####
+grunt creates a few temporary folders -- be sure to avoid uploading these to your server or including them in SVN
+(if you add them to wordpress.org/plugins). These folders are:
+
++   `.sass-cache` - created when compiling sass
++   `.tmp` - created when running autoprefixer and cssmin
++   `node_modules` - contains code necessary to run grunt and grun tasks
+
+## Future ##
+
+I should mention that this is a living codebase -- I use this any time I'm building plugin. As a result,
+the code changes frequently. I attempt to keep the code updated (mostly happens) as well as the documentation
+(mostly doesn't happen). Feel free to submit issues, or browser them to see what other features are planned.
+
+Thanks for playing.
+
+
+
+
+
