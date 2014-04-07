@@ -13,7 +13,3 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
-
-#: ../__inc/geek_caller_rejection.php:13
-msgid "Hello? Huh... What?! OMG, Seriously? Don&apos;t call me again. Ever."
-msgstr ""
