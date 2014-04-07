@@ -110,9 +110,11 @@ The Feature class exposes three methods for making handling actions & filter met
 <dd>Creates a <code>callable</code> array for the method corresponding to the string <code>$methodName</code>.</dd>
 
 <dt><code>$this->add_action( $action, $method_name, $priority = 10, $accepted_args = 2 )</code></dt>
-<dd>Marshaled version of [WordPress' add_action method](https://codex.wordpress.org/Function_Reference/add_action)</dd>
+<dd>Marshaled version of <a href="https://codex.wordpress.org/Function_Reference/add_action" target="_blank">
+WordPress add_action method</a></dd>
 
 <dt><code>$this->add_filter( $action, $method_name, $priority = 10, $accepted_args = 2 )</code></dt>
-<dd>Marshaled version of [WordPress' add_filter method](https://codex.wordpress.org/Function_Reference/add_filter)</dd>
+<dd>Marshaled version of <a href="https://codex.wordpress.org/Function_Reference/add_filter" target="_blank">
+WordPress add_filter method]</a></dd>
 </dl>
 
