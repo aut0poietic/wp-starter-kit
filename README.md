@@ -106,13 +106,13 @@ Your feature should then add actions or filters in the constructor and handle th
 The Feature class exposes three methods for making handling actions & filter methods.
 
 <dl>
-<dt>`$this->marshal( $methodName )`</dt>
-<dd>Creates a 'callable' array for the method corresponding to the string `$methodName`.</dd>
+<dt><code>$this->marshal( $methodName )</code></dt>
+<dd>Creates a <code>callable</code> array for the method corresponding to the string <code>$methodName</code>.</dd>
 
-<dt>`$this->add_action( $action, $method_name, $priority = 10, $accepted_args = 2 )`</dt>
+<dt><code>$this->add_action( $action, $method_name, $priority = 10, $accepted_args = 2 )</code></dt>
 <dd>Marshaled version of [WordPress' add_action method](https://codex.wordpress.org/Function_Reference/add_action)</dd>
 
-<dt>`$this->add_filter( $action, $method_name, $priority = 10, $accepted_args = 2 )`</dt>
+<dt><code>$this->add_filter( $action, $method_name, $priority = 10, $accepted_args = 2 )</code></dt>
 <dd>Marshaled version of [WordPress' add_filter method](https://codex.wordpress.org/Function_Reference/add_filter)</dd>
 </dl>
 
