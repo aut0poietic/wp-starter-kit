@@ -71,6 +71,9 @@ If you plan to use grunt in your project:
 The framework comes with a sample feature already in the assets/core folder ("rebrand.php") which rebrands the
 WordPress login screen and utilizes the majority of the frameworks features, if only in a basic way.
 
+The examples below are all pulled from the Rebrand class. Keep in mind that the examples do not change the default
+namespace or plugin slug -- but you must.
+
 #### Warning: Lame Example Ahead ####
 
 The "rebrand" feature is not only one of the stupidest examples of a plugin known to man, it also goes
@@ -82,7 +85,8 @@ That said, the animation is still kind cool to watch.
 
 ### Feature Subclasses ###
 
-
+Features are classes that extend Starter-Kit's Feature class, inheriting useful methods for interacting with
+WordPress, rendering HTML and initialization. Here's a minimal example:
 
 ```php
 namespace irresponsible_art\starter_kit;
@@ -94,3 +98,21 @@ class LoginBranding extends Feature {
 // Subscribe to the drop-in to the initialization event
 add_action( 'starter_kit_init', array( 'irresponsible_art\starter_kit\LoginBranding', 'init' ) );
 ```
+
+Again, you'd need to replace "irresponsible_art\starter_kit" namespace at the top and bottom of the document,
+as well as changing 'starter_kit_init' to use your slug instead of "starter_kit".
+
+Your feature should then add actions or filters in the constructor and handle them in the body of the class.
+The Feature class exposes three methods for making handling actions & filter methods.
+
+<dl>
+<dt>`$this->marshal( $methodName )`</dt>
+<dd>Creates a 'callable' array for the method corresponding to the string `$methodName`.</dd>
+
+<dt>`$this->add_action( $action, $method_name, $priority = 10, $accepted_args = 2 )`</dt>
+<dd>Marshaled version of [WordPress' add_action method](https://codex.wordpress.org/Function_Reference/add_action)</dd>
+
+<dt>`$this->add_filter( $action, $method_name, $priority = 10, $accepted_args = 2 )`</dt>
+<dd>Marshaled version of [WordPress' add_filter method](https://codex.wordpress.org/Function_Reference/add_filter)</dd>
+</dl>
+
