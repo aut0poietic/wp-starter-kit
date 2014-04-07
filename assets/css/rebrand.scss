@@ -6,9 +6,8 @@ h1 a {
 	height: 80px;
 	margin: auto 25px;
 	overflow: visible !important ;
-
 	transition: background-size .5s ;
-
+	
 	&:before {
 		content: "";
 		display:block;

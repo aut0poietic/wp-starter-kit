@@ -1,6 +1,6 @@
 {
   "name": "wp-starter-kit",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",

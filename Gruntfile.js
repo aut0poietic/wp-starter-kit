@@ -21,14 +21,11 @@ module.exports = function ( grunt ) {
 
 	// Load tasks from the tasks folder
 	grunt.loadTasks( 'grunt' );
-
 	// Load all the tasks options in tasks/options base on the name
 	grunt.util._.extend( config , loadConfig( './grunt/options/' ) );
-
 	grunt.initConfig( config );
 
 	require( 'load-grunt-tasks' )( grunt );
-
 	// Default Task is basically a rebuild
 	grunt.registerTask( 'default' , [ 'jshint', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'imagemin' ] );
 };
