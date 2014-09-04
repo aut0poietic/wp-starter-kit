@@ -36,6 +36,8 @@ class Kit {
 	 *
 	 * @static
 	 */
+
+	
 	public static function _activate_plugin() {
 		if( class_exists('irresponsible_art\starter_kit\PluginOptions' ) ){
 			PluginOptions::upgrade_plugin_options( self::defaults() );
