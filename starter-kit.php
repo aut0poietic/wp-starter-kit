@@ -66,7 +66,7 @@ class StarterKit extends Kit {
 	 * @static
 	 * @return array The default preferences and settings for the plugin.
 	 */
-	private static function defaults() {
+	public static function defaults() {
 		return array(
 
 		);
