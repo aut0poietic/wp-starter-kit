@@ -37,11 +37,13 @@ class Kit {
 	 * @static
 	 */
 
-	
 	public static function _activate_plugin() {
-		if( class_exists('irresponsible_art\starter_kit\PluginOptions' ) ){
-			PluginOptions::upgrade_plugin_options( self::defaults() );
+		if( function_exists( 'get_called_class' ) ){
+			$calledClass = get_called_class( );
+			if( class_exists('irresponsible_art\starter_kit\PluginOptions' ) ){
+				PluginOptions::upgrade_plugin_options( $calledClass::defaults() );
+			}
+			$calledClass::activate_plugin();
 		}
-		self::activate_plugin();
 	}
 }
